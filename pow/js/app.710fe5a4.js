@@ -606,68 +606,18 @@
                                         quantity: "0.0001 EOS",
                                         memo: ""
                                     }
-                                }, {
-                                    account: "eosio.token",
-                                    name: "transfer",
-                                    authorization: [{
-                                        actor: this.currentAccount,
-                                        permission: this.currentPermission
-                                    }],
-                                    data: {
-                                        from: this.currentAccount,
-                                        to: "eosiopowcoin",
-                                        quantity: "0.0001 EOS",
-                                        memo: ""
-                                    }
-                                }, {
-                                    account: "eosio.token",
-                                    name: "transfer",
-                                    authorization: [{
-                                        actor: this.currentAccount,
-                                        permission: this.currentPermission
-                                    }],
-                                    data: {
-                                        from: this.currentAccount,
-                                        to: "eosiopowcoin",
-                                        quantity: "0.0001 EOS",
-                                        memo: ""
-                                    }
-                                }, {
-                                    account: "eosio.token",
-                                    name: "transfer",
-                                    authorization: [{
-                                        actor: this.currentAccount,
-                                        permission: this.currentPermission
-                                    }],
-                                    data: {
-                                        from: this.currentAccount,
-                                        to: "eosiopowcoin",
-                                        quantity: "0.0001 EOS",
-                                        memo: ""
-                                    }
-                                }, {
-                                    account: "eosio.token",
-                                    name: "transfer",
-                                    authorization: [{
-                                        actor: this.currentAccount,
-                                        permission: this.currentPermission
-                                    }],
-                                    data: {
-                                        from: this.currentAccount,
-                                        to: "eosiopowcoin",
-                                        quantity: "0.0001 EOS",
-                                        memo: ""
-                                    }
                                 }]
                             }).then(function(t) {
                                 e.isFirstTime = !1,
                                     e.digCount = e.digCount + 5,
-                                    localStorage.setItem("dig-count", e.digCount),
-                                    e.isAuto && !e.isFast && e.transfer("start")
+                                    localStorage.setItem("dig-count", e.digCount)
+                                    // e.isAuto && !e.isFast && e.transfer("start")
                             }).catch(function(t) {
+                                /*
                                 e.isAuto && !e.isFast && setTimeout(function() {
                                     e.transfer("start")
                                 }, 5e3)
+                                */
                             })
                         }
                     },
