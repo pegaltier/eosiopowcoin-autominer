@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>POW Auto Miner 2 汽车矿工</title>
+    <style></style>
+    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script>
+    <!-- <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs.min.js"></script> -->
+    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eosjs@21.0.3/dist/index.min.js"></script>
+    
+    <script>
+       // const {JsonRpc, Api} = window.eosjs; // VIA CDN
+       //  import {JsonRpc, Api} from 'eosjs' // VIA NODE
+       // const Eos = eosjs;
+
+      ScatterJS.plugins(new ScatterEOS());
+      const nodes = [
+        'api.main.alohaeos.com',
+        'api.eosdetroit.io',
+        'nodes.get-scatter.com',
+      ];
+      x = Math.floor(Math.random() * nodes.length);
+      const network = ScatterJS.Network.fromJson({
+        blockchain: 'eos',
+        chainId:
+          'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+        host: nodes[x],
+        port: 443,
+        protocol: 'https',
+      });
+      /*
+      ScatterJS.connect('POW2', { network }).then((connected) => {
+        if (!connected) return false;
+        console.log('POW2:CONNECTED');
+        // ScatterJS.someMethod();
+        ScatterJS.login().then((logged) => {
+            console.log('POW2:LOGGED');
+            const account = ScatterJS.account('eos');
+            console.log('POW2:ACCOUNT',account );
+        });
+      });
+      */
+
+      const rpc = new eosjs_jsonrpc.JsonRpc('https://api.eosnewyork.io');
+    const api = new eosjs_api.Api({ rpc: rpc, signatureProvider: scatter.eosHook(network), textDecoder: new TextDecoder(), textEncoder: new TextEncoder()});
+
+    
+
+ScatterJS.connect('POW2', {network}).then(connected => {
+    if(!connected) return console.error('no scatter');
+    console.log('POW2:CONNECTED');
+    const eos = ScatterJS.eos(network, Api, {rpc});
+
+    ScatterJS.login().then(id => {
+        console.log('POW2:LOGGED');
+        if(!id) return console.error('no identity');
+        const account = ScatterJS.account('eos');
+        console.log('POW2:ACCOUNT', account);
+        eos.transact({
+            actions: [{
+                account: 'eosio.token',
+                name: 'transfer',
+                authorization: [{
+                    actor: account.name,
+                    permission: account.authority,
+                }],
+                data: {
+                    from: account.name,
+                    to: 'safetransfer',
+                    quantity: '0.0001 EOS',
+                    memo: account.name,
+                },
+            }]
+        }, {
+            blocksBehind: 3,
+            expireSeconds: 30,
+        }).then(res => {
+            console.log('sent: ', res);
+        }).catch(err => {
+            console.error('error: ', err);
+        });
+    });
+});
+    </script>
+  </head>
+
+  <body>
+    <noscript
+      ><strong
+        >We're sorry but dapps doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong
+      ></noscript
+    >
+  </body>
+</html>
