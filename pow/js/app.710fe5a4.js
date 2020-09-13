@@ -454,7 +454,7 @@
             w = n.n(_),
             y = n("1315");
         b.a.plugins(new w.a);
-        var A = ["api.main.alohaeos.com", "eos.newdex.one", "api.eosdetroit.io"],
+        var A = ["api.main.alohaeos.com", "api.eosdetroit.io"], // "eos.newdex.one", 
             x = Math.floor(Math.random() * A.length),
             S = {
                 blockchain: "eos",
